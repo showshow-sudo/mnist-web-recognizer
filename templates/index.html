@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MNIST 手写数字识别</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <h1>MNIST 手写数字识别</h1>
+        <p class="sub">
+          Flask 后端 + 三种模型：鱼书 TwoLayerNet（NumPy）／简单 CNN（PyTorch）／LeNet-5（PyTorch）
+        </p>
+      </header>
+
+      <main class="grid">
+        <section class="card panel-draw">
+          <h2>画布</h2>
+          <p class="hint">
+            书写 0–9 单字：笔画粗一些、字形尽量大并靠近画布中心（后端会自动裁边、居中并按 MNIST
+            方式缩放到 28×28）。
+          </p>
+          <div class="canvas-wrap">
+            <canvas id="drawCanvas" aria-label="手写画布"></canvas>
+          </div>
+          <div class="toolbar">
+            <button type="button" id="btnClear" class="btn secondary">清空画布</button>
+            <button type="button" id="btnPredict" class="btn primary">识别</button>
+          </div>
+        </section>
+
+        <section class="card panel-side">
+          <h2>模型与结果</h2>
+          <label class="field">
+            <span class="label">选择模型</span>
+            <select id="modelSelect">
+              <option value="two_layer">TwoLayerNet（鱼书 · NumPy）</option>
+              <option value="cnn">简单 CNN（PyTorch）</option>
+              <option value="lenet">LeNet-5（PyTorch）</option>
+            </select>
+          </label>
+
+          <div id="status" class="status idle">等待识别</div>
+
+          <div class="result">
+            <div class="result-big">
+              <span class="result-label">预测数字</span>
+              <span id="digitOut" class="digit">—</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label">置信度</span>
+              <span id="confOut" class="mono">—</span>
+            </div>
+            <div class="probs-wrap">
+              <span class="result-label">各类别概率</span>
+              <div id="probBars" class="prob-bars"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="foot">
+        <p>
+          预处理：灰度、白底黑字→黑底白字、包围盒裁切与方形扩边、等比例缩放至 20×20 后嵌入
+          28×28（与 MNIST 常见留白一致），像素 [0,1]。
+        </p>
+      </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/canvas.js') }}"></script>
+  </body>
+</html>

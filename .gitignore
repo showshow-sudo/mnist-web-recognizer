@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+.venv/
+venv/
+env/
+
+# 训练产物与数据（体积大，克隆后本地运行 train.py 可重新生成）
+weights/
+data/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+.DS_Store
+
+# Flask
+instance/
+.webassets-cache
